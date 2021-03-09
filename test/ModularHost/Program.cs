@@ -9,8 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Modular;
-using Modular.Core;
-using Modular.Core.AspNetCore;
+using Modular.AspNetCore;
 
 namespace ModularHost
 {

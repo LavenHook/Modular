@@ -11,12 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ModularHost.Data;
 using Modular;
-using Modular.Core;
-using Modular.Core.AspNetCore;
+using Modular.AspNetCore;
+using Modular.AspNetCore.Configuration;
 
 namespace ModularHost
 {
-  [DependsOn(typeof(CounterRCL.CounterModule))]
+  [DependsOn(typeof(CounterModule))]
   public class Startup
   {
     public Startup(IConfiguration configuration)
@@ -30,6 +30,9 @@ namespace ModularHost
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+      //Needed to allow the Hosting application (i.e. App.razor) register RCL assemblies, without the need to include each assembly by name in the 
+      //services.AddBlazorUIAssembly(typeof(RCL_Library_name).Assembly);
+
       services.AddRazorPages();
       services.AddServerSideBlazor();
       services.AddSingleton<WeatherForecastService>();

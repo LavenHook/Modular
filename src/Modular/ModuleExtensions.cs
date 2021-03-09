@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Modular
 {
-  internal static class ModuleExtensions
+  public static class ModuleExtensions
   {
     public static Type[] DependsOn(this object @this)
     {
@@ -58,14 +57,14 @@ namespace Modular
       return results.Distinct().ToArray();
     }
 
-    public static int DependencyPriority(this object @this)
+    internal static int DependencyPriority(this object @this)
     {
       return DependencyPriority(@this?.GetType() ?? typeof(object));
     }
 
     //TODO: This /*is*/ may be horribly inefficient - probably big-O (n^2) - needs to be made more efficient
     //There *may* also be a circular dependency problem
-    public static int DependencyPriority(Type currentType)
+    internal static int DependencyPriority(Type currentType)
     {
       int result = 0;
       var currentDependsOnAttributes = currentType.GetCustomAttributes(typeof(DependsOnAttribute), true).Select(o => o as DependsOnAttribute);

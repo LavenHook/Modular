@@ -1,5 +1,6 @@
-﻿
-<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="new System.Reflection.Assembly[] { typeof(CounterRCL.Counter).Assembly }">
+﻿@using System.Reflection
+@inject Modular.AspNetCore.Configuration.BlazorUIAssemblyService AssemblyService
+  <Router AppAssembly="@thisAssembly" AdditionalAssemblies="@additionalAssemblies">
   <Found Context="routeData">
     <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
   </Found>
@@ -9,3 +10,8 @@
     </LayoutView>
   </NotFound>
 </Router>
+@code {
+  private Assembly thisAssembly => typeof(App).Assembly;
+
+  private IEnumerable<Assembly> additionalAssemblies => AssemblyService.Assemblies.Except(new Assembly[] { thisAssembly });
+}

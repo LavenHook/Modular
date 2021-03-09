@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ModularHost.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CounterRCL
+namespace ModularHost
 {
-  public class CounterModule : Modular.Core.Module
+  public class CounterModule : Modular.Module
   {
     public override string Name => nameof(CounterModule);
 

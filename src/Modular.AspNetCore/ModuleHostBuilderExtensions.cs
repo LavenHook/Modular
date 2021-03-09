@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
+using Modular;
 
 namespace Modular.AspNetCore
 {
@@ -42,19 +40,12 @@ namespace Modular.AspNetCore
             }
           }
         })
-        .ConfigureAppConfiguration((b, c) =>
-        {
-          //c.AddUserSecrets<TStartupModule>();
-          c.AddEnvironmentVariables();
-        })
         //SEE: https://github.com/dotnet/aspnetcore/issues/11921#issuecomment-523670519
-        //.ConfigureAppConfiguration((b, c) => b.HostingEnvironment.ApplicationName = typeof(TStartupModule).Namespace);
         .ConfigureAppConfiguration((b, c) => b.HostingEnvironment.ApplicationName = typeof(TStartupModule).Assembly.GetName().Name)
-        //.UseStartup<EndpointStartupModuleLoader<TStartupModule>>();
         .ConfigureAppConfiguration((b, c) =>
         {
-          
-          
+          c.AddUserSecrets<TStartupModule>(optional: true);
+          c.AddEnvironmentVariables();
         })
         .ConfigureServices((c, s) =>
         {
